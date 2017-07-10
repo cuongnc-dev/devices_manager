@@ -1,0 +1,13 @@
+<tr>
+  <td><%= department.name %></td>
+  <td class="width-120 text-center">
+    <%= link_to edit_department_path(department), class: "btn btn-primary btn-xs",
+      title: t("edit") do %>
+      <i class="glyphicon glyphicon-edit"></i>
+    <% end %>
+    <%= link_to department_path(department), method: :delete,
+      class: "btn btn-danger btn-xs", title: t("delete") do %>
+      <i class="glyphicon glyphicon-remove"></i>
+    <% end %>
+  </td>
+</tr>

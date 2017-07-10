@@ -1,0 +1,18 @@
+<% provide :title, t("departments_manager") %>
+<div class="col-md-12 margin-top-30">
+  <%= link_to t("create_department"), new_department_path,
+    class: "btn btn-danger float-right" %>
+</div>
+<div class="col-md-12 margin-top-30">
+  <div class="col-md-6 col-md-offset-3">
+    <table class="table table-bordered">
+      <thead>
+        <th class="text-center"><%= t "name_department" %></th>
+        <th class="text-center width-120"><%= t "action" %></th>
+      </thead>
+      <tbody>
+        <%= render @departments %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<%= form_for @device do |f| %>
+  <% if f.object.errors.any? %>
+    <% f.object.errors.full_messages.each do |msg| %>
+      <p class="alert alert-warning"><%= msg %></p>
+    <% end %>
+  <% end %>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :name, t("device.name") %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :country_produce, t("device.country_produce") %>
+      <%= f.text_field :country_produce, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :year_produce, t("device.year_produce") %>
+      <%= f.number_field :year_produce, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :year_use, t("device.year_use") %>
+      <%= f.number_field :year_use, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :unit, t("device.unit") %>
+      <%= f.text_field :unit, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :unit_price, t("device.unit_price") %>
+      <%= f.number_field :unit_price, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :quantity_account_book, t("device.quantity_account_book") %>
+      <%= f.number_field :quantity_account_book, class: "form-control" %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :quantity_actual_inventory, t("device.quantity_actual_inventory") %>
+      <%= f.number_field :quantity_actual_inventory, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :quantity_redundancy, t("device.quantity_redundancy") %>
+      <%= f.number_field :quantity_redundancy, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :quantity_missing, t("device.quantity_mising") %>
+      <%= f.number_field :quantity_missing, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :note, t("device.note") %>
+      <%= f.text_field :note, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :source, t("device.source") %>
+      <%= f.text_field :source, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :status, t("device.status") %>
+      <%= f.text_field :status, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :department_id, t("name_department") %>
+      <%= f.select :department_id,
+        options_for_select(@departments.collect{|d| [d.name, d.id]},
+        @device.department_id.present? ? @device.department_id : ""), {},
+        class: "form-control" %>
+    </div>
+  </div>
+  <div class="col-md-12 text-center">
+    <%= f.submit t("save_button"), class: "btn btn-primary" %>
+  </div>
+<% end %>

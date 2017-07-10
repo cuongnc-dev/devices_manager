@@ -1,0 +1,50 @@
+<% provide :title, t("devices_manager") %>
+<div class="col-md-12 margin-top-30">
+  <%= link_to t("create_device"), new_device_path,
+    class: "btn btn-danger float-right" %>
+</div>
+<div class="col-md-12 margin-top-30">
+  <% @departments.each do |department| %>
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">
+        <h5><strong><%= department.name %></strong></h5>
+      </div>
+      <div class="panel-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th rowspan="2"><%= t "device.index" %></th>
+              <th rowspan="2"><%= t "device.name" %></th>
+              <th rowspan="2"><%= t "device.country_produce" %></th>
+              <th rowspan="2"><%= t "device.year_produce" %></th>
+              <th rowspan="2"><%= t "device.year_use" %></th>
+              <th rowspan="2"><%= t "device.unit" %></th>
+              <th rowspan="2"><%= t "device.unit_price" %></th>
+              <th colspan="2"><%= t "device.account_book" %></th>
+              <th colspan="2"><%= t "device.actual_inventory" %></th>
+              <th><%= t "device.redundancy" %></th>
+              <th><%= t "device.missing" %></th>
+              <th rowspan="2"><%= t "device.note" %></th>
+              <th rowspan="2"><%= t "device.source" %></th>
+              <th rowspan="2"><%= t "device.status" %></th>
+            </tr>
+            <tr>
+              <th><%= t "device.quantity" %></th>
+              <th><%= t "device.total_money" %></th>
+              <th><%= t "device.quantity" %></th>
+              <th><%= t "device.total_money" %></th>
+              <th><%= t "device.quantity" %></th>
+              <th><%= t "device.quantity" %></th>
+            </tr>
+          </thead>
+          <tbody>
+              <% devices = Device.where department_id: department.id %>
+              <% if devices %>
+                <%= render devices %>
+              <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>

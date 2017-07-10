@@ -1,0 +1,56 @@
+body {
+  padding-top: 20px;
+}
+.nav-header {
+  ul {
+    text-align: center;
+    li {
+      min-width: 180px;
+      &.active {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.margin-top-30 {
+  margin-top: 30px;
+}
+
+.float-right {
+  float: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.message-alert {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  ul {
+    padding: 0;
+    li {
+      list-style: none;
+    }
+  }
+}
+
+.width-120 {
+  width: 120px;
+}
+
+table {
+  font-size: 11px;
+  thead {
+    th {
+      text-align: center;
+      vertical-align: middle !important;
+    }
+  }
+}
+
+button, input[type="submit"] {
+  min-width: 100px !important;
+}

@@ -1,0 +1,18 @@
+<tr>
+  <td><%= device_counter + 1 %></td>
+  <td><%= device.name %></td>
+  <td><%= device.country_produce %></td>
+  <td><%= device.year_produce %></td>
+  <td><%= device.year_use %></td>
+  <td><%= device.unit %></td>
+  <td><%= device.unit_price %></td>
+  <td><%= device.quantity_account_book %></td>
+  <td><%= calc_money device.quantity_account_book, device.unit_price %></td>
+  <td><%= device.quantity_actual_inventory %></td>
+  <td><%= calc_money device.quantity_actual_inventory, device.unit_price %></td>
+  <td><%= device.quantity_redundancy %></td>
+  <td><%= device.quantity_missing %></td>
+  <td><%= device.note %></td>
+  <td><%= device.source %></td>
+  <td><%= device.status %></td>
+</tr>

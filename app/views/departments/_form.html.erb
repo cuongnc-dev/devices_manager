@@ -1,0 +1,9 @@
+<%= form_for @department, html: {class: "margin-top-30"} do |f| %>
+  <div class="form-group">
+    <%= f.label :name, t("name_department") %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form-group text-center">
+    <%= f.submit t("save_button"), class: "btn btn-primary" %>
+  </div>
+<% end %>

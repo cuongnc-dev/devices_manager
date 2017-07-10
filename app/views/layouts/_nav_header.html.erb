@@ -1,0 +1,8 @@
+<ul class="nav nav-tabs">
+  <li class="<%= is_active "devices" %>">
+    <%= link_to t("devices_manager"), devices_path %>
+  </li>
+  <li class="<%= is_active "departments" %>">
+    <%= link_to t("departments_manager"), departments_path %>
+  </li>
+</ul>
