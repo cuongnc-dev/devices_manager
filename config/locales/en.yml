@@ -1,7 +1,7 @@
 en:
   devices_manager: "Quản lí trang thiết bị y tế"
   departments_manager: "Quản lí khoa phòng"
-  create_department: "Thêm khoa phongf mới"
+  create_department: "Thêm khoa phòng mới"
   edit_department: "Chỉnh sửa khoa phòng"
   create_device: "Thêm thiết bị mới"
   edit_device: "Chỉnh sửa thiết bị"

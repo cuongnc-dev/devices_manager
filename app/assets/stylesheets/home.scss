@@ -49,8 +49,15 @@ table {
       vertical-align: middle !important;
     }
   }
+  td {
+    vertical-align: middle !important;
+  }
 }
 
 button, input[type="submit"] {
   min-width: 100px !important;
+}
+
+.panel-heading {
+  text-transform: uppercase;
 }
