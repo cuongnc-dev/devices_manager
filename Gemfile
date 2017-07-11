@@ -16,6 +16,7 @@ gem "jbuilder", "~> 2.5"
 gem "bootstrap-sass", "~> 3.3.6"
 gem "kaminari"
 gem "kaminari-bootstrap", "~> 3.0.1"
+gem "config"
 
 group :development, :test do
   gem "byebug", platform: :mri

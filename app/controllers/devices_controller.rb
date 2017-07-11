@@ -39,7 +39,7 @@ class DevicesController < ApplicationController
     else
       flash[:danger] = t "error"
     end
-    redirect_to departments_url
+    redirect_to devices_url
   end
 
   private
@@ -58,6 +58,14 @@ class DevicesController < ApplicationController
   end
 
   def load_department
-    @departments = Department.all
+    if params[:find_by]
+      case params[:find_by]
+      when "0"
+        @departments = Department.find_department params[:name]
+      when "1"
+      end
+    else
+      @departments = Department.all
+    end
   end
 end

@@ -37,3 +37,6 @@ en:
     note: "Ghi chú"
     source: "Nguồn giao"
     status: "Tình trạng hoạt động"
+  unit:
+    cai: "Cái"
+    bo: "Bộ"

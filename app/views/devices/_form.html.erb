@@ -6,6 +6,13 @@
   <% end %>
   <div class="col-md-6">
     <div class="form-group">
+      <%= f.label :department_id, t("name_department") %>
+      <%= f.select :department_id,
+        options_for_select(@departments.collect{|d| [d.name, d.id]},
+        @device.department_id.present? ? @device.department_id : ""), {},
+        class: "form-control" %>
+    </div>
+    <div class="form-group">
       <%= f.label :name, t("device.name") %>
       <%= f.text_field :name, class: "form-control" %>
     </div>
@@ -23,18 +30,20 @@
     </div>
     <div class="form-group">
       <%= f.label :unit, t("device.unit") %>
-      <%= f.text_field :unit, class: "form-control" %>
+      <%= f.select :unit, options_for_select([[t("unit.cai"), "cai"],
+        [t("unit.bo"), "bo"]], @device.unit.present? ? @device.unit : ""), {},
+        class: "form-control" %>
     </div>
     <div class="form-group">
       <%= f.label :unit_price, t("device.unit_price") %>
       <%= f.number_field :unit_price, class: "form-control" %>
     </div>
+  </div>
+  <div class="col-md-6">
     <div class="form-group">
       <%= f.label :quantity_account_book, t("device.quantity_account_book") %>
       <%= f.number_field :quantity_account_book, class: "form-control" %>
     </div>
-  </div>
-  <div class="col-md-6">
     <div class="form-group">
       <%= f.label :quantity_actual_inventory, t("device.quantity_actual_inventory") %>
       <%= f.number_field :quantity_actual_inventory, class: "form-control" %>
@@ -59,15 +68,8 @@
       <%= f.label :status, t("device.status") %>
       <%= f.text_field :status, class: "form-control" %>
     </div>
-    <div class="form-group">
-      <%= f.label :department_id, t("name_department") %>
-      <%= f.select :department_id,
-        options_for_select(@departments.collect{|d| [d.name, d.id]},
-        @device.department_id.present? ? @device.department_id : ""), {},
-        class: "form-control" %>
-    </div>
   </div>
   <div class="col-md-12 text-center">
-    <%= f.submit t("save_button"), class: "btn btn-primary" %>
+    <%= f.submit t("save_button"), class: "btn btn-primary min-width-100" %>
   </div>
 <% end %>
