@@ -1,5 +1,5 @@
 class Department < ApplicationRecord
   has_many :devices, dependent: :destroy
 
-  scope :find_department, -> name {where "name like ?", "%#{name}%"}
+  pg_search_scope :find_department, against: :name
 end

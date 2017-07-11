@@ -63,6 +63,7 @@ class DevicesController < ApplicationController
       when "0"
         @departments = Department.find_department params[:name]
       when "1"
+        @devices = Device.find_device params[:name]
       end
     else
       @departments = Department.all

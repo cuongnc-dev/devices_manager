@@ -5,9 +5,11 @@ $(document).ready(function() {
     }, 3000);
   }
 
-  $('.device-row').hover(function() {
+  $(document).on('mouseover', '.device-row', function() {
     $(this).find('.action-hidden').show();
-  }, function() {
+  });
+
+  $(document).on('mouseout', '.device-row', function() {
     $(this).find('.action-hidden').hide();
   })
 });
