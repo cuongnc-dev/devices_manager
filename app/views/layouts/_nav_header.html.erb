@@ -1,8 +1,13 @@
 <ul class="nav nav-tabs">
-  <li class="<%= is_active "devices" %>">
+  <li class="items <%= is_active "devices" %>">
     <%= link_to t("devices_manager"), devices_path %>
   </li>
-  <li class="<%= is_active "departments" %>">
+  <li class="items <%= is_active "departments" %>">
     <%= link_to t("departments_manager"), departments_path %>
+  </li>
+  <li class="float-right">
+    <%= link_to destroy_user_session_path, method: :delete, title: t("devise.log_out") do %>
+      <i class="glyphicon glyphicon-off"></i>
+    <% end %>
   </li>
 </ul>

@@ -6,9 +6,9 @@ class DevicesController < ApplicationController
     file_name = t "file_name"
     respond_to do |format|
       format.html
-      format.xls do
-        headers["Content-Disposition"] = "attachment; filename=\"#{file_name}(#{Date.today}).xls\""
-        headers["Content-Type"] ||= "xls"
+      format.xlsx do
+        headers["Content-Disposition"] = "attachment; filename=\"#{file_name}(#{Date.today}).xlsx\""
+        headers["Content-Type"] ||= "xlsx"
       end
     end
   end

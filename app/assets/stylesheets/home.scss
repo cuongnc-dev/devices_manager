@@ -5,7 +5,7 @@ body {
 .nav-header {
   ul {
     text-align: center;
-    li {
+    .items {
       min-width: 180px;
       &.active {
         font-weight: bold;
@@ -19,7 +19,7 @@ body {
 }
 
 .float-right {
-  float: right;
+  float: right !important;
 }
 
 .text-center {
@@ -97,4 +97,8 @@ table {
   background-repeat: no-repeat;
   display: inline-block !important;
   width: 34px !important;
+}
+
+.margin-right-10 {
+  margin-right: 10px;
 }

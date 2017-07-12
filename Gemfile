@@ -20,6 +20,7 @@ gem "config"
 gem "pg_search"
 gem "axlsx", "2.1.0.pre"
 gem "axlsx_rails"
+gem "devise"
 
 group :development, :test do
   gem "byebug", platform: :mri
