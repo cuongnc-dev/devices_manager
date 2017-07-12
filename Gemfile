@@ -18,6 +18,8 @@ gem "kaminari"
 gem "kaminari-bootstrap", "~> 3.0.1"
 gem "config"
 gem "pg_search"
+gem "axlsx", "2.1.0.pre"
+gem "axlsx_rails"
 
 group :development, :test do
   gem "byebug", platform: :mri

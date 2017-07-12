@@ -3,6 +3,14 @@ class DevicesController < ApplicationController
   before_action :load_device, only: [:edit, :update, :destroy]
 
   def index
+    file_name = t "file_name"
+    respond_to do |format|
+      format.html
+      format.xls do
+        headers["Content-Disposition"] = "attachment; filename=\"#{file_name}(#{Date.today}).xls\""
+        headers["Content-Type"] ||= "xls"
+      end
+    end
   end
 
   def new

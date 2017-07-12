@@ -1,0 +1,72 @@
+require "axlsx"
+
+xlsx_package = Axlsx::Package.new
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  title_row_style = style.add_style sz: 13, b: true,
+    alignment: {horizontal: :center, vertical: :center, wrap_text: true}
+  group_time_row_style = style.add_style sz: 10, b: true,
+    alignment: {horizontal: :center, vertical: :center, wrap_text: true}
+  header_table_style = style.add_style sz: 10, b: true,
+    alignment: {horizontal: :center, vertical: :center, wrap_text: true},
+    border: {style: :thin, color: "000000", edges: [:top, :left, :bottom, :right]}
+  list_style = style.add_style sz: 10, alignment: {vertical: :center, wrap_text: true},
+    border: {style: :thin, color: "000000", edges: [:top, :left, :bottom, :right]}
+  note_style = style.add_style i: true, sz: 8
+  signature_style = style.add_style i: true, sz: 10, b: true,
+    alignment: {horizontal: :center, vertical: :center, wrap_text: true}
+  wb.add_worksheet(name: Date.today.to_s) do |sheet|
+    title_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+      style: title_row_style, height: 25
+    sheet.merge_cells("#{title_row.cells[1].r}:#{title_row.cells[8].r}")
+    title_row.cells[1].value = t("list_devices").upcase
+    time_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+      style: group_time_row_style, height: 25
+    sheet.merge_cells("#{time_row.cells[1].r}:#{time_row.cells[8].r}")
+    time_row.cells[1].value = t("", date: Date.today.strftime("%d/%m/%Y"))
+    sheet.add_row []
+    @departments.each do |department|
+      title_sheet_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil,
+        nil, nil, nil, nil, nil, nil, nil, nil], style: header_table_style
+      sheet.merge_cells("#{title_sheet_row.cells[0].r}:#{title_sheet_row.cells.last.r}")
+      title_sheet_row.cells[0].value = t("department.name").upcase
+      table_header_row = sheet.add_row [t("device.index"), t("device.name"),
+        t("device.country_produce"), t("device.year_produce"), t("device.year_use"),
+        t("device.unit"), t("device.unit_price"), t("device.account_book"), nil,
+        t("device.actual_inventory"), nil, t("device.redundancy"),
+        t("device.missing"), t("device.note"), t("device.source"),
+        t("device.status")], style: header_table_style, height: 25
+      merge_table_header_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil,
+        t("device.quantity"), t("device.total_money"), t("device.quantity"),
+        t("device.total_money"), t("device.quantity"), t("device.quantity"),
+        nil, nil, nil], style: header_table_style, height: 25
+      merge_table_header_row.each_with_index do |cell, index|
+        unless index == 7 || index == 8 || index == 9 || index == 10 || index == 11 || index == 12
+          sheet.merge_cells("#{table_header_row.cells[index].r}:#{merge_table_header_row.cells[index].r}")
+        end
+      end
+      department.devices.each_with_index do |device, index|
+      end
+    end
+    sheet.add_row []
+    date_signature_row = sheet.add_row [nil, nil, nil, nil, nil, nil,
+      t("export_request_off.date_signature"), nil], style: signature_style
+    sheet.merge_cells("#{date_signature_row.cells[6].r}:#{date_signature_row.cells[7].r}")
+    confirm_head_department_row = sheet.add_row [nil, nil, nil, nil, nil, nil,
+      t("export_request_off.confirm_head_department"), nil], style: signature_style
+    sheet.merge_cells("#{confirm_head_department_row.cells[6].r}:#{confirm_head_department_row.cells[7].r}")
+    sheet.add_row []
+    sheet.add_row []
+    sheet.add_row [t("export_request_off.note")], style: note_style
+    sheet.add_row [t("export_request_off.off_types")], style: note_style
+    sheet.add_row ["(1) " <<
+      t("dashboard.request_offs.details_information.number_dayoff_normal") << ": P"],
+      style: note_style
+    SpecialDayoffSetting.all.each_with_index do |value, index|
+      sheet.add_row ["(#{index + 2}) #{value.name}: #{value.code}"],
+        style: note_style
+    end
+    sheet.column_widths 6, 16, 16, 20, nil, 16, 16, nil, nil, 16
+  end
+end
