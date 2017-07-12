@@ -66,7 +66,7 @@ class DevicesController < ApplicationController
   end
 
   def load_department
-    if params[:find_by]
+    if params[:name].present?
       case params[:find_by]
       when "0"
         @departments = Department.find_department params[:name]

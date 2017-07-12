@@ -20,4 +20,14 @@ $(document).ready(function() {
     var margin_top = (document_height - login_height) / 2;
     $('.panel-login').css({'margin-top': margin_top});
   }
+
+  var url_search = $('#search-form').attr('action');
+
+  $('.export-exel').click(function(e) {
+    e.preventDefault();
+    var url_xls = $(this).attr('href');
+    $('#search-form').attr('action', url_xls);
+    $('#search-form').submit();
+    $('#search-form').attr('action', url_search);
+  });
 });

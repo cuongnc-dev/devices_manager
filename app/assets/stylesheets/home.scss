@@ -44,15 +44,7 @@ body {
 
 table {
   font-size: 11px;
-  thead {
-    th {
-      text-align: center;
-      vertical-align: middle !important;
-    }
-  }
-  td {
-    vertical-align: middle !important;
-  }
+  margin-bottom: 0 !important;
 }
 
 .min-width-100 {
@@ -61,6 +53,10 @@ table {
 
 .panel-heading {
   text-transform: uppercase;
+}
+
+.panel-body {
+  padding: 0 !important;
 }
 
 .relative {

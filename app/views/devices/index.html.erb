@@ -1,18 +1,20 @@
 <% provide :title, t("devices_manager") %>
 <div class="col-xs-12 margin-top-30">
   <div class="col-xs-8 col-md-5">
-    <%= form_tag devices_path, method: :get do %>
+    <%= form_tag devices_path, method: :get, id: "search-form" do %>
       <%= select_tag :find_by, options_for_select([[t("name_department"), 0],
         [t("name_device"), 1]], params[:find_by]), class: "form-control search-select" %>
-      <%= text_field_tag :name, params[:name], required: true,
+      <%= text_field_tag :name, params[:name],
         class: "form-control search-text" %>
       <%= submit_tag " ", name: nil, class: "form-control search-submit" %>
     <% end %>
   </div>
   <%= link_to t("create_device"), new_device_path,
     class: "btn btn-danger float-right" %>
-  <%= link_to t("export_exel"), devices_path(format: "xlsx"),
-    class: "btn btn-primary float-right margin-right-10" %>
+  <% if @departments.present? %>
+    <%= link_to t("export_exel"), devices_path(format: "xlsx"),
+      class: "btn btn-primary float-right margin-right-10 export-exel" %>
+  <% end %>
 </div>
 <div class="col-xs-12 margin-top-30">
   <% if @departments %>
