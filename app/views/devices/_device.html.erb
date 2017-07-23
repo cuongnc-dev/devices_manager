@@ -24,7 +24,7 @@
   <td class="relative">
     <%= device.status %>
     <div class="action-hidden">
-      <%= link_to edit_device_path(device), class: "btn btn-primary btn-xs",
+      <%= link_to edit_device_path(device), remote: true, class: "btn btn-primary btn-xs",
         title: t("edit") do %>
         <i class="glyphicon glyphicon-edit"></i>
       <% end %>

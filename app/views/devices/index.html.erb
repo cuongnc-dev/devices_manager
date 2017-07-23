@@ -9,7 +9,7 @@
       <%= submit_tag " ", name: nil, class: "form-control search-submit" %>
     <% end %>
   </div>
-  <%= link_to t("create_device"), new_device_path,
+  <%= link_to t("create_device"), new_device_path, remote: true,
     class: "btn btn-danger float-right" %>
   <% if @departments.present? %>
     <%= link_to t("export_exel"), devices_path(format: "xlsx"),
@@ -24,7 +24,7 @@
           <div class="panel-heading text-center">
             <h5><strong><%= department.name %></strong></h5>
           </div>
-          <div class="panel-body">
+          <div class="panel-body padding-0">
             <table class="table table-bordered">
               <thead>
                 <tr>
@@ -70,7 +70,7 @@
       <div class="panel-heading text-center">
         <h5><strong><%= t "search_result" %></strong></h5>
       </div>
-      <div class="panel-body">
+      <div class="panel-body padding-0">
         <% if @devices.present? %>
           <table class="table table-bordered">
             <thead>

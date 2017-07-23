@@ -30,4 +30,8 @@ $(document).ready(function() {
     $('#search-form').submit();
     $('#search-form').attr('action', url_search);
   });
+
+  $('#edit-modal').on('hidden.bs.modal', function() {
+    $('#edit-modal modal-body').html('');
+  })
 });
