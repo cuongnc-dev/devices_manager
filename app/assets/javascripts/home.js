@@ -33,5 +33,10 @@ $(document).ready(function() {
 
   $('#edit-modal').on('hidden.bs.modal', function() {
     $('#edit-modal modal-body').html('');
+  });
+
+  $('.collapse-table').click(function() {
+    $(this).parents('.panel').find('.panel-body').slideToggle('fast');
+    $(this).toggleClass('rotate-90');
   })
 });

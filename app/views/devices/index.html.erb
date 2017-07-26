@@ -22,7 +22,11 @@
       <% @departments.each do |department| %>
         <div class="panel panel-default">
           <div class="panel-heading text-center">
-            <h5><strong><%= department.name %></strong></h5>
+            <h5>
+              <strong><%= department.name %></strong>
+              <% if department.devices.any? %>
+                <span class="collapse-table"></span>
+            </h5>
           </div>
           <div class="panel-body padding-0">
             <table class="table table-bordered">
@@ -60,6 +64,10 @@
               </tbody>
             </table>
           </div>
+          <% else %>
+              </h5>
+            </div>
+          <% end %>
         </div>
       <% end %>
     <% else %>

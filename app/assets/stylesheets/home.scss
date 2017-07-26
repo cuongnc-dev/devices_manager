@@ -98,3 +98,21 @@ table {
 .margin-right-10 {
   margin-right: 10px;
 }
+
+.collapse-table {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 10px solid #ccc;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  float: right;
+  cursor: pointer;
+  transition-duration: .3s;
+}
+
+.rotate-90 {
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
