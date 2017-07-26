@@ -23,12 +23,13 @@ $(document).ready(function() {
 
   var url_search = $('#search-form').attr('action');
 
-  $('.export-exel').click(function(e) {
+  $(document).on('click', '.export-exel', function(e) {
     e.preventDefault();
     var url_xls = $(this).attr('href');
     $('#search-form').attr('action', url_xls);
-    $('#search-form').submit();
+    $('.search-submit').click();
     $('#search-form').attr('action', url_search);
+    $('.search-submit').attr('disabled', false);
   });
 
   $('#edit-modal').on('hidden.bs.modal', function() {
