@@ -6,7 +6,7 @@
         [t("name_device"), 1]], params[:find_by]), class: "form-control search-select" %>
       <%= text_field_tag :name, params[:name],
         class: "form-control search-text" %>
-      <%= submit_tag " ", name: nil, class: "form-control search-submit" %>
+      <%= submit_tag "", name: nil, class: "form-control search-submit" %>
     <% end %>
   </div>
   <%= link_to t("create_device"), new_device_path, remote: true,
