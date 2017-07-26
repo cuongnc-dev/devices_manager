@@ -36,8 +36,8 @@ $(document).ready(function() {
     $('#edit-modal modal-body').html('');
   });
 
-  $('.collapse-table').on('click', function() {
+  $('.collapse-table').click(function() {
     $(this).parents('.panel').find('.panel-body').slideToggle('fast');
     $(this).toggleClass('rotate-90');
-  })
+  });
 });
