@@ -29,7 +29,7 @@ $(document).ready(function() {
     $('#search-form').attr('action', url_xls);
     $('.search-submit').click();
     $('#search-form').attr('action', url_search);
-    $('.search-submit').attr('disabled', false);
+    $(document).find('.search-submit').attr('disabled', false);
   });
 
   $('#edit-modal').on('hidden.bs.modal', function() {

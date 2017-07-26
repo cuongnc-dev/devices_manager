@@ -45,6 +45,9 @@ body {
 table {
   font-size: 11px;
   margin-bottom: 0 !important;
+  td {
+    vertical-align: middle !important;
+  }
 }
 
 .min-width-100 {
