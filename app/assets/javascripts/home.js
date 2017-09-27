@@ -23,13 +23,28 @@ $(document).ready(function() {
 
   var url_search = $('#search-form').attr('action');
 
-  $(document).on('click', '.export-exel', function(e) {
+  $(document).on('click', '.export-exel-full', function(e) {
     e.preventDefault();
     var url_xls = $(this).attr('href');
     $('#search-form').attr('action', url_xls);
-    $('.search-submit').click();
+    var find_by = $('#find_by').val();
+    var name = $('#name').val();
+    var url = $('#search-form').attr('action'),
+    var data = {find_by: find_by, name: name, format: 'xlsx'}
+    $.get(url, data, null, null);
     $('#search-form').attr('action', url_search);
-    $(document).find('.search-submit').attr('disabled', false);
+  });
+
+  $(document).on('click', '.export-exel-collapse', function(e) {
+    e.preventDefault();
+    var url_xls = $(this).attr('href');
+    $('#search-form').attr('action', url_xls);
+    var find_by = $('.search-select').val();
+    var name = $('.search-text').val();
+    var url = $('#search-form').attr('action'),
+    var data = {find_by: find_by, name: name, format: 'xlsx', type: 'collapse'}
+    $.get(url, data, null, null);
+    $('#search-form').attr('action', url_search);
   });
 
   $('#edit-modal').on('hidden.bs.modal', function() {

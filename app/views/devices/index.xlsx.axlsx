@@ -27,80 +27,82 @@ wb.styles do |style|
   align_center = style.add_style alignment: {horizontal: :center, wrap_text: true, vertical: :center},
     border: {style: :thin, color: "000000", edges: [:top, :left, :bottom, :right]}
   wb.add_worksheet(name: Date.today.to_s) do |sheet|
-    title_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil],
-      style: title_row_style, height: 25
-    sheet.merge_cells("#{title_row.cells[0].r}:#{title_row.cells[7].r}")
-    title_row.cells[0].value = t("list_devices")
-    time_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil],
-      style: group_time_row_style, height: 25
-    sheet.merge_cells("#{time_row.cells[0].r}:#{time_row.cells[7].r}")
-    time_row.cells[0].value = t("date", date: Date.today.strftime("%d/%m/%Y"))
-    sheet.add_row []
-    table_header_row = sheet.add_row [t("device.index"), t("device.name"),
-      t("device.country_produce"), t("device.year_use"), t("device.unit"), t("device.sl"),
-      t("device.status"), t("name_department")], style: header_table_style, height: 25
-    total_index = 0
-    @departments.each do |department|
-      if department.devices.present?
-        department.devices.each do |device|
-          total_index = total_index + 1
-          sheet.add_row [total_index, device.name, device.country_produce, device.year_use,
-            display_unit(device), device.quantity_actual_inventory, device.status, department.name],
-            style: [align_center, align_left, align_center, align_center, align_center,
-              align_center, align_left, align_left], height: 25
+    if params[:type] == "collapse"
+      title_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil],
+        style: title_row_style, height: 25
+      sheet.merge_cells("#{title_row.cells[0].r}:#{title_row.cells[7].r}")
+      title_row.cells[0].value = t("list_devices")
+      time_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil],
+        style: group_time_row_style, height: 25
+      sheet.merge_cells("#{time_row.cells[0].r}:#{time_row.cells[7].r}")
+      time_row.cells[0].value = t("date", date: Date.today.strftime("%d/%m/%Y"))
+      sheet.add_row []
+      table_header_row = sheet.add_row [t("device.index"), t("device.name"),
+        t("device.country_produce"), t("device.year_use"), t("device.unit"), t("device.sl"),
+        t("device.status"), t("name_department")], style: header_table_style, height: 25
+      total_index = 0
+      @departments.each do |department|
+        if department.devices.present?
+          department.devices.each do |device|
+            total_index = total_index + 1
+            sheet.add_row [total_index, device.name, device.country_produce, device.year_use,
+              display_unit(device), device.quantity_actual_inventory, device.status, department.name],
+              style: [align_center, align_left, align_center, align_center, align_center,
+                align_center, align_left, align_left], height: 25
+          end
         end
       end
+      sheet.column_widths 6, 35, 10, 12, 12, 10, 24, 35
+    else
+      title_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,
+        nil, nil, nil, nil, nil, nil],
+        style: title_row_style, height: 25
+      sheet.merge_cells("#{title_row.cells[0].r}:#{title_row.cells[15].r}")
+      title_row.cells[0].value = t("list_devices")
+      time_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,
+        nil, nil, nil, nil, nil, nil], style: group_time_row_style, height: 25
+      sheet.merge_cells("#{time_row.cells[0].r}:#{time_row.cells[15].r}")
+      time_row.cells[0].value = t("date", date: Date.today.strftime("%d/%m/%Y"))
+      sheet.add_row []
+      @departments.each do |department|
+        if department.devices.present?
+          title_sheet_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil,
+            nil, nil, nil, nil, nil, nil, nil, nil], style: department_table_style, height: 30
+          sheet.merge_cells("#{title_sheet_row.cells[0].r}:#{title_sheet_row.cells.last.r}")
+          title_sheet_row.cells[0].value = department.name
+          table_header_row = sheet.add_row [t("device.index"), t("device.name"),
+            t("device.country_produce"), t("device.year_produce"), t("device.year_use"),
+            t("device.unit"), t("device.unit_price"), t("device.account_book"), nil,
+            t("device.actual_inventory"), nil, t("device.redundancy"),
+            t("device.missing"), t("device.note"), t("device.source"),
+            t("device.status")], style: header_table_style, height: 25
+          sheet.merge_cells("#{table_header_row.cells[7].r}:#{table_header_row.cells[8].r}")
+          sheet.merge_cells("#{table_header_row.cells[9].r}:#{table_header_row.cells[10].r}")
+          merge_table_header_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil,
+            t("device.sl"), t("device.total_money"), t("device.sl"),
+            t("device.total_money"), t("device.sl"), t("device.sl"),
+            nil, nil, nil], style: header_table_style, height: 25
+          merge_table_header_row.each_with_index do |cell, index|
+            unless index == 7 || index == 8 || index == 9 || index == 10 || index == 11 || index == 12
+              sheet.merge_cells("#{table_header_row.cells[index].r}:#{merge_table_header_row.cells[index].r}")
+            end
+          end
+          department.devices.each_with_index do |device, index|
+            sheet.add_row [index + 1, device.name, device.country_produce,
+              device.year_produce, device.year_use, display_unit(device),
+              device.unit_price, device.quantity_account_book,
+              calc_money(device.quantity_account_book, device.unit_price),
+              device.quantity_actual_inventory,
+              calc_money(device.quantity_actual_inventory, device.unit_price),
+              device.quantity_redundancy, device.quantity_missing, device.note,
+              device.source, device.status], style: [align_center, align_left, align_center, align_center,
+                align_center, align_center, align_right, align_center, align_right, align_center,
+                align_right, align_center, align_center, align_left, align_left, align_left], height: 25
+          end
+          sheet.add_row []
+        end
+      end
+      sheet.column_widths 6, 24, 10, 6, 6, 6, 16, 6, 10, 6, 10, 6, 6, 20, 20, 20
     end
-    sheet.column_widths 6, 35, 10, 12, 12, 10, 24, 35
   end
 end
-    # title_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,
-    #   nil, nil, nil, nil, nil, nil],
-    #   style: title_row_style, height: 25
-    # sheet.merge_cells("#{title_row.cells[0].r}:#{title_row.cells[15].r}")
-    # title_row.cells[0].value = t("list_devices")
-    # time_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,
-    #   nil, nil, nil, nil, nil, nil], style: group_time_row_style, height: 25
-    # sheet.merge_cells("#{time_row.cells[0].r}:#{time_row.cells[15].r}")
-    # time_row.cells[0].value = t("date", date: Date.today.strftime("%d/%m/%Y"))
-    # sheet.add_row []
-    # @departments.each do |department|
-    #   if department.devices.present?
-    #     title_sheet_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil,
-    #       nil, nil, nil, nil, nil, nil, nil, nil], style: department_table_style, height: 30
-    #     sheet.merge_cells("#{title_sheet_row.cells[0].r}:#{title_sheet_row.cells.last.r}")
-    #     title_sheet_row.cells[0].value = department.name
-    #     table_header_row = sheet.add_row [t("device.index"), t("device.name"),
-    #       t("device.country_produce"), t("device.year_produce"), t("device.year_use"),
-    #       t("device.unit"), t("device.unit_price"), t("device.account_book"), nil,
-    #       t("device.actual_inventory"), nil, t("device.redundancy"),
-    #       t("device.missing"), t("device.note"), t("device.source"),
-    #       t("device.status")], style: header_table_style, height: 25
-    #     sheet.merge_cells("#{table_header_row.cells[7].r}:#{table_header_row.cells[8].r}")
-    #     sheet.merge_cells("#{table_header_row.cells[9].r}:#{table_header_row.cells[10].r}")
-    #     merge_table_header_row = sheet.add_row [nil, nil, nil, nil, nil, nil, nil,
-    #       t("device.sl"), t("device.total_money"), t("device.sl"),
-    #       t("device.total_money"), t("device.sl"), t("device.sl"),
-    #       nil, nil, nil], style: header_table_style, height: 25
-    #     merge_table_header_row.each_with_index do |cell, index|
-    #       unless index == 7 || index == 8 || index == 9 || index == 10 || index == 11 || index == 12
-    #         sheet.merge_cells("#{table_header_row.cells[index].r}:#{merge_table_header_row.cells[index].r}")
-    #       end
-    #     end
-    #     department.devices.each_with_index do |device, index|
-    #       sheet.add_row [index + 1, device.name, device.country_produce,
-    #         device.year_produce, device.year_use, display_unit(device),
-    #         device.unit_price, device.quantity_account_book,
-    #         calc_money(device.quantity_account_book, device.unit_price),
-    #         device.quantity_actual_inventory,
-    #         calc_money(device.quantity_actual_inventory, device.unit_price),
-    #         device.quantity_redundancy, device.quantity_missing, device.note,
-    #         device.source, device.status], style: [align_center, align_left, align_center, align_center,
-    #           align_center, align_center, align_right, align_center, align_right, align_center,
-    #           align_right, align_center, align_center, align_left, align_left, align_left], height: 25
-    #     end
-    #     sheet.add_row []
-    #     sheet.add_row []
-    #   end
-    # end
-    # sheet.column_widths 6, 24, 10, 6, 6, 6, 16, 6, 10, 6, 10, 6, 6, 20, 20, 20

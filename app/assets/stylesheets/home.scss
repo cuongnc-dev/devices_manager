@@ -87,7 +87,7 @@ table {
 
 .search-text {
   display: inline-block !important;
-  width: calc(100% - 200px) !important;
+  width: calc(100% - 192px) !important;
 }
 
 .search-submit {
@@ -118,4 +118,11 @@ table {
   -ms-transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
+}
+
+.menu-export {
+  padding: 0 !important;
+  > li > a {
+    padding: 10px 20px !important;
+  }
 }
